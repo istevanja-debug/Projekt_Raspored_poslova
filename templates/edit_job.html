@@ -2,28 +2,57 @@
 <html>
 <head>
     <title>Uredi posao</title>
+
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet">
 </head>
 <body>
+
+<div class="container mt-4">
 
 <h1>Uredi posao</h1>
 
 <form method="POST">
 
-    <input type="text" name="adresa" value="{{ posao.adresa }}"><br><br>
+    <input type="text"
+           name="adresa"
+           value="{{ posao.adresa }}"
+           class="form-control"><br><br>
 
-    <input type="date" name="datum" value="{{ posao.datum }}"><br><br>
+    <input type="date"
+           name="datum"
+           value="{{ posao.datum }}"
+           class="form-control"><br><br>
 
-    <input type="time" name="vrijeme" value="{{ posao.vrijeme }}"><br><br>
+    <input type="time"
+           name="vrijeme"
+           value="{{ posao.vrijeme }}"
+           class="form-control"><br><br>
 
-    <input type="text" name="klima" value="{{ posao.klima }}"><br><br>
+    <input type="text"
+           name="klima"
+           value="{{ posao.klima }}"
+           class="form-control"><br><br>
 
-    <input type="text" name="radnik" value="{{ posao.radnik }}"><br><br>
+    <input type="text"
+           name="radnik"
+           value="{{ posao.radnik }}"
+           class="form-control"><br><br>
 
-    <input type="number" step="0.01" name="cijena" value="{{ posao.cijena }}"><br><br>
+    <input type="number"
+           step="0.01"
+           name="cijena"
+           value="{{ posao.cijena }}"
+           class="form-control"><br><br>
 
-    <button type="submit">Spremi promjene</button>
+    <button type="submit"
+            class="btn btn-primary">Spremi promjene</button>
 
 </form>
 
+</div>
 </body>
 </html>

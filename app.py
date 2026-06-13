@@ -1,38 +1,40 @@
 from flask import Flask, render_template, request, redirect
-from pony.orm import db_session, commit
+from pony.orm import db_session, commit, count
 
 from entities import Posao
 
 
 app = Flask(__name__)
 
-@app.route("/test")
-@db_session
-def test():
-
-    Posao(
-        adresa="Pulska 10",
-        datum="2026-06-15",
-        vrijeme="10:00",
-        klima="Daikin",
-        radnik="Ivan",
-        cijena=1200.0
-    )
-
-    commit()
-
-    return "Posao dodan!"
-
-
 @app.route("/poslovi")
 @db_session
 def poslovi():
 
-    svi_poslovi = Posao.select()
+    svi_poslovi = list(Posao.select())
+
+    broj_poslova = len(svi_poslovi)
+
+    broj_obavljenih = len(
+        [p for p in svi_poslovi if p.obavljeno]
+    )
+
+    broj_neobavljenih = len(
+        [p for p in svi_poslovi if not p.obavljeno]
+    )
+
+    ukupna_zarada = sum(
+        p.cijena
+        for p in svi_poslovi
+        if p.obavljeno
+    )
 
     return render_template(
         "index.html",
-        poslovi=svi_poslovi
+        poslovi=svi_poslovi,
+        broj_poslova=broj_poslova,
+        broj_obavljenih=broj_obavljenih,
+        broj_neobavljenih=broj_neobavljenih,
+        ukupna_zarada=ukupna_zarada
     )
 
 
@@ -103,6 +105,103 @@ def uredi(id):
     return render_template(
         "edit_job.html",
         posao=posao
+    )
+
+@app.route("/statistika")
+@db_session
+def statistika():
+
+    poslovi = list(Posao.select())
+
+    svi_poslovi = len(poslovi)
+
+    obavljeni = len(
+        [p for p in poslovi if p.obavljeno]
+    )
+
+    neobavljeni = len(
+        [p for p in poslovi if not p.obavljeno]
+    )
+
+    ukupna_zarada = sum(
+        p.cijena for p in poslovi
+        if p.obavljeno
+    )
+
+    return render_template(
+        "statistika.html",
+        svi_poslovi=svi_poslovi,
+        obavljeni=obavljeni,
+        neobavljeni=neobavljeni,
+        ukupna_zarada=ukupna_zarada
+    )
+
+@app.route("/neobavljeni")
+@db_session
+def neobavljeni():
+
+    svi_poslovi = list(Posao.select())
+
+    poslovi = [
+        p for p in svi_poslovi
+        if not p.obavljeno
+    ]
+
+    return render_template(
+        "index.html",
+        poslovi=poslovi
+    )
+
+@app.route("/obavljeni")
+@db_session
+def obavljeni():
+
+    svi_poslovi = list(Posao.select())
+
+    poslovi = [
+        p for p in svi_poslovi
+        if p.obavljeno
+    ]
+
+    return render_template(
+        "index.html",
+        poslovi=poslovi
+    )
+
+@app.route("/radnik")
+@db_session
+def radnik():
+
+    ime = request.args.get("ime")
+
+    svi_poslovi = list(Posao.select())
+
+    poslovi = [
+        p for p in svi_poslovi
+        if p.radnik == ime
+    ]
+
+    return render_template(
+        "index.html",
+        poslovi=poslovi
+    )
+
+@app.route("/datum")
+@db_session
+def datum():
+
+    trazeni_datum = request.args.get("datum")
+
+    svi_poslovi = list(Posao.select())
+
+    poslovi = [
+        p for p in svi_poslovi
+        if p.datum == trazeni_datum
+    ]
+
+    return render_template(
+        "index.html",
+        poslovi=poslovi
     )
 
 if __name__ == "__main__":

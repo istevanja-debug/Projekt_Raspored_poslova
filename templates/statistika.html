@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Statistika</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <h1>Statistika</h1>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            Ukupan broj poslova: {{ svi_poslovi }}
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            Obavljeni poslovi: {{ obavljeni }}
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            Neobavljeni poslovi: {{ neobavljeni }}
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            Ukupna zarada: {{ ukupna_zarada }} €
+        </div>
+    </div>
+
+    <a href="/poslovi" class="btn btn-primary">
+        Povratak na poslove
+    </a>
+
+</div>
+
+</body>
+</html>
