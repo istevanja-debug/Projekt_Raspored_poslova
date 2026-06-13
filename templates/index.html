@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Raspored poslova</title>
+</head>
+<body>
+
+<h1>Raspored poslova</h1>
+
+<a href="/dodaj">Dodaj novi posao</a>
+
+<br><br>
+
+<table border="1">
+
+    <tr>
+        <th>ID</th>
+        <th>Adresa</th>
+        <th>Datum</th>
+        <th>Vrijeme</th>
+        <th>Klima</th>
+        <th>Radnik</th>
+        <th>Cijena</th>
+        <th>Obavljeno</th>
+        <th>Akcije</th>
+    </tr>
+
+    {% for posao in poslovi %}
+
+    <tr>
+        <td>{{ posao.id }}</td>
+        <td>{{ posao.adresa }}</td>
+        <td>{{ posao.datum }}</td>
+        <td>{{ posao.vrijeme }}</td>
+        <td>{{ posao.klima }}</td>
+        <td>{{ posao.radnik }}</td>
+        <td>{{ posao.cijena }}</td>
+
+        <td>
+            {% if posao.obavljeno %}
+                Da
+            {% else %}
+                Ne
+            {% endif %}
+        </td>
+
+        <td>
+            <a href="/zavrsi/{{ posao.id }}">Završi</a>
+            |
+            <a href="/obrisi/{{ posao.id }}">Obriši</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
