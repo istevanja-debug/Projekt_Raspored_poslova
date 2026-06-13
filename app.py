@@ -80,5 +80,30 @@ def zavrsi(id):
     return redirect("/poslovi")
 
 
+@app.route("/uredi/<int:id>", methods=["GET", "POST"])
+@db_session
+def uredi(id):
+
+    posao = Posao.get(id=id)
+
+    if not posao:
+        return "Posao ne postoji"
+
+    if request.method == "POST":
+
+        posao.adresa = request.form["adresa"]
+        posao.datum = request.form["datum"]
+        posao.vrijeme = request.form["vrijeme"]
+        posao.klima = request.form["klima"]
+        posao.radnik = request.form["radnik"]
+        posao.cijena = float(request.form["cijena"])
+
+        return redirect("/poslovi")
+
+    return render_template(
+        "edit_job.html",
+        posao=posao
+    )
+
 if __name__ == "__main__":
     app.run(debug=True)

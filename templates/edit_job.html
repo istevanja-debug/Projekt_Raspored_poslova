@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uredi posao</title>
+</head>
+<body>
+
+<h1>Uredi posao</h1>
+
+<form method="POST">
+
+    <input type="text" name="adresa" value="{{ posao.adresa }}"><br><br>
+
+    <input type="date" name="datum" value="{{ posao.datum }}"><br><br>
+
+    <input type="time" name="vrijeme" value="{{ posao.vrijeme }}"><br><br>
+
+    <input type="text" name="klima" value="{{ posao.klima }}"><br><br>
+
+    <input type="text" name="radnik" value="{{ posao.radnik }}"><br><br>
+
+    <input type="number" step="0.01" name="cijena" value="{{ posao.cijena }}"><br><br>
+
+    <button type="submit">Spremi promjene</button>
+
+</form>
+
+</body>
+</html>
