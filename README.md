@@ -22,6 +22,6 @@ Skidanje koda s GitHub-a:
 
 
 Docker tutorial: 
-docker build -t raspored_poslova .
-docker ps
-docker run -p 8080:8080 raspored_poslova
+docker build -t raspored_poslova .  
+docker ps  
+docker run -p 8080:8080 raspored_poslova  
