@@ -11,51 +11,10 @@
 </head>
 <body>
 
-<h1>Raspored poslova</h1>
-
-{% if broj_poslova is defined %}
-<div class="row mb-4">
-
-    <div class="col-md-3">
-        <div class="card dashboard-card ukupno-card text-center">
-            <div class="card-body">
-                <h5>Ukupno poslova</h5>
-                <h2>{{ broj_poslova }}</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card dashboard-card obavljeno-card text-center">
-            <div class="card-body">
-                <h5>Obavljeno</h5>
-                <h2>{{ broj_obavljenih }}</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card dashboard-card neobavljeno-card text-center">
-            <div class="card-body">
-                <h5>Neobavljeno</h5>
-                <h2>{{ broj_neobavljenih }}</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card dashboard-card zarada-card text-center">
-            <div class="card-body">
-                <h5>Zarada</h5>
-                <h2>{{ ukupna_zarada }} €</h2>
-            </div>
-        </div>
-    </div>
-
-</div>
-{% endif %}
 
 <div class="container mt-4">
+
+    <h1>Raspored poslova</h1>
 
 <a href="/poslovi" class="btn btn-primary">
     Svi poslovi
