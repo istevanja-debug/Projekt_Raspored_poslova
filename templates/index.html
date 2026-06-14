@@ -3,73 +3,57 @@
 <head>
     <title>Raspored poslova</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
     <link rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
 
 <div class="container mt-4">
 
-    <h1>Raspored poslova</h1>
+    <header class="page-header">
+        <h1>Raspored poslova</h1>
 
-<a href="/poslovi" class="btn btn-primary">
-    Svi poslovi
-</a>
-
-<a href="/neobavljeni" class="btn btn-warning">
-    Neobavljeni
-</a>
-
-<a href="/obavljeni" class="btn btn-success">
-    Obavljeni
-</a>
-
-<form action="/radnik" method="GET" class="mb-3">
-
-    <input
-        type="text"
-        name="ime"
-        placeholder="Ime radnika"
-        class="form-control">
-
-    <button
-        type="submit"
-        class="btn btn-secondary mt-2">
-        Pretraži radnika
-    </button>
-
-</form>
-
-<form action="/datum" method="GET" class="mb-3">
-
-    <input
-        type="date"
-        name="datum"
-        class="form-control">
-
-    <button
-        type="submit"
-        class="btn btn-secondary mt-2">
-
-        Poslovi po datumu
-
-    </button>
-
-</form>
+        <img src="{{ url_for('static', filename='logo.png') }}" class="header-logo" alt="Logo">
+    </header>
 
 
-<a href="/dodaj" class="btn btn-success mb-3">Dodaj novi posao</a>
+<div class="content">
 
-<br><br>
+    <div class="toolbar">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<a href="/statistika"
-   class="btn btn-info mb-3">
-    Statistika
-</a>
+    <div>
+        <a href="/poslovi" class="btn btn-primary">
+            Svi poslovi
+        </a>
+
+        <a href="/neobavljeni" class="btn btn-warning">
+            Neobavljeni
+        </a>
+
+        <a href="/obavljeni" class="btn btn-success">
+            Obavljeni
+        </a>
+    </div>
+
+    <div>
+        <a href="/dodaj" class="btn btn-success">
+            Dodaj posao
+        </a>
+
+        <a href="/statistika" class="btn btn-info">
+            Statistika
+        </a>
+    </div>
+</div>
+</div>
 
 <table class="table table-striped table-bordered">
 
@@ -82,7 +66,7 @@
         <th>Radnik</th>
         <th>Cijena</th>
         <th>Obavljeno</th>
-        <th>Status posla</th>
+        <th></th>
     </tr>
 
     {% for posao in poslovi %}
@@ -123,6 +107,101 @@
 
 </table>
 
+    <div class="row mt-4">
+
+    <div class="col-md-6">
+
+        <form action="/radnik" method="GET">
+
+            <label class="form-label">
+                Pretraga po radniku
+            </label>
+
+            <input
+                type="text"
+                name="ime"
+                placeholder="Ime radnika"
+                class="form-control">
+
+            <button
+                type="submit"
+                class="btn btn-secondary mt-2">
+                Pretraži
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <form action="/datum" method="GET">
+
+            <label class="form-label">
+                Pretraga po datumu
+            </label>
+
+            <input
+                type="date"
+                name="datum"
+                class="form-control">
+
+            <button
+                type="submit"
+                class="btn btn-secondary mt-2">
+                Prikaži
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+<br><br><br>
+{% if broj_poslova is defined %}
+
+<div class="row dashboard-section">
+
+    <div class="col-md-3">
+        <div class="card dashboard-card ukupno-card text-center">
+            <div class="card-body">
+                <h5>Ukupno poslova</h5>
+                <h2>{{ broj_poslova }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card dashboard-card obavljeno-card text-center">
+            <div class="card-body">
+                <h5>Obavljeno</h5>
+                <h2>{{ broj_obavljenih }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card dashboard-card neobavljeno-card text-center">
+            <div class="card-body">
+                <h5>Neobavljeno</h5>
+                <h2>{{ broj_neobavljenih }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card dashboard-card zarada-card text-center">
+            <div class="card-body">
+                <h5>Zarada</h5>
+                <h2>{{ ukupna_zarada }} €</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
+</div>
 </div>
 </body>
 </html>
