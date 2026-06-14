@@ -1,10 +1,53 @@
-from flask import Flask, render_template, request, redirect
-from pony.orm import db_session, commit, count
+from flask import Flask, render_template, request, redirect, jsonify
+from pony.orm import db_session
 
 from entities import Posao
 
 
 app = Flask(__name__)
+
+
+@app.route("/api/poslovi")
+@db_session
+def api_poslovi():
+
+    svi_poslovi = list(Posao.select())
+
+    rezultat = []
+
+    for p in svi_poslovi:
+        rezultat.append({
+            "id": p.id,
+            "adresa": p.adresa,
+            "datum": p.datum,
+            "vrijeme": p.vrijeme,
+            "klima": p.klima,
+            "radnik": p.radnik,
+            "cijena": p.cijena,
+            "obavljeno": p.obavljeno
+        })
+
+    return jsonify(rezultat)
+
+@app.route("/api/posao/<int:id>")
+@db_session
+def api_posao(id):
+
+    p = Posao.get(id=id)
+
+    if not p:
+        return jsonify({"error": "Posao ne postoji"}), 404
+
+    return jsonify({
+        "id": p.id,
+        "adresa": p.adresa,
+        "datum": p.datum,
+        "vrijeme": p.vrijeme,
+        "klima": p.klima,
+        "radnik": p.radnik,
+        "cijena": p.cijena,
+        "obavljeno": p.obavljeno
+    })
 
 @app.route("/poslovi")
 @db_session
