@@ -32,7 +32,7 @@ Posao(id, adresa, datum, vrijeme, klima, radnik, cijena, obavljeno)
 5. Pokrenite Docker kontejner:  
 ```docker run -p 5000:5000 raspored_poslova```
 6. Otvorite preglednik na adresi  
-http://localhost:5000/poslovi 
+```http://127.0.0.1:5000/poslovi```
   
 ## Tehnologije korištene u izradi projekta
   
