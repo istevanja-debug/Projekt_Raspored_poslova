@@ -227,9 +227,15 @@ def radnik():
         if p.radnik == ime
     ]
 
+    poruka = None
+
+    if len(poslovi) == 0:
+        poruka = f"Radnik '{ime}' nema nijedan posao u rasporedu."
+
     return render_template(
         "index.html",
-        poslovi=poslovi
+        poslovi=poslovi,
+        poruka=poruka
     )
 
 @app.route("/datum")
@@ -245,9 +251,15 @@ def datum():
         if p.datum == trazeni_datum
     ]
 
+    poruka = None
+
+    if len(poslovi) == 0:
+        poruka = f"Za datum {trazeni_datum} nema poslova u rasporedu."
+
     return render_template(
         "index.html",
-        poslovi=poslovi
+        poslovi=poslovi,
+        poruka=poruka
     )
 
 if __name__ == "__main__":
