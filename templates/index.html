@@ -52,13 +52,6 @@
             Statistika
         </a>
     </div>
-
-        {% if poruka %}
-    <div class="alert alert-info">
-        {{ poruka }}
-    </div>
-    {% endif %}
-
 </div>
 </div>
 
@@ -139,6 +132,12 @@
         </form>
 
     </div>
+
+           {% if poruka %}
+    <div class="alert alert-info">
+        {{ poruka }}
+    </div>
+    {% endif %}
 
     <div class="col-md-6">
 
